@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Router } from "./src/navigation/Router";
+import { AuthProvider } from "./src/contexts/Auth";
+import LoadingScreen from "./src/screens/LoadingScreen";
 
-export default function App() {
+import {
+  useFonts,
+  Caveat_700Bold,
+} from '@expo-google-fonts/caveat';
+
+import { Signika_600SemiBold, Signika_400Regular } from '@expo-google-fonts/signika';
+
+// import { Caveat_700Bold } from "@expo-google-fonts/caveat";
+
+const App = () => {
+  let [fontsLoaded] = useFonts({
+    Caveat_700Bold,
+    Signika_600SemiBold,
+    Signika_400Regular
+  });
+
+  if (!fontsLoaded) {
+    return <LoadingScreen />
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthProvider>
+      {/* <StatusBar barStyle={"light-content"} translucent backgroundColor={"transparent"}/> */}
+      <Router />
+    </AuthProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
