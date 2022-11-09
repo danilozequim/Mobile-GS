@@ -9,12 +9,112 @@ import {
   Pressable,
   Alert,
   ScrollView,
+  Button,
 } from "react-native";
 import { api } from "../services/api";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { RadioButton } from "react-native-paper";
 
 export default function RegisterScreen() {
+  const EnterpriseForm = () => {
+    return (
+      <>
+        <Text style={styles.secondTitle}>ENDEREÇO</Text>
+
+        <TextInput
+          value={password}
+          onChangeText={(userPassword) => setPassword(userPassword)}
+          style={styles.textInput}
+          placeholder="Endereço"
+          placeholderTextColor="#A39BFF"
+        />
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <TextInput
+            value={password}
+            onChangeText={(userPassword) => setPassword(userPassword)}
+            style={[styles.textInput, { width: "45%" }]}
+            placeholder="Número"
+            placeholderTextColor="#A39BFF"
+          />
+          <TextInput
+            value={password}
+            onChangeText={(userPassword) => setPassword(userPassword)}
+            style={[styles.textInput, { width: "53%" }]}
+            placeholder="Complemento"
+            placeholderTextColor="#A39BFF"
+          />
+        </View>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <TextInput
+            value={password}
+            onChangeText={(userPassword) => setPassword(userPassword)}
+            style={[styles.textInput, { width: "45%" }]}
+            placeholder="CEP"
+            placeholderTextColor="#A39BFF"
+          />
+          <TextInput
+            value={password}
+            onChangeText={(userPassword) => setPassword(userPassword)}
+            style={[styles.textInput, { width: "53%" }]}
+            placeholder="Estado"
+            placeholderTextColor="#A39BFF"
+          />
+        </View>
+      </>
+    );
+  };
+
+  const TruckerForm = () => {
+    return (
+      <>
+        <Text style={styles.secondTitle}>INFORMAÇÕES DO VEÍCULO</Text>
+
+        <TextInput
+          value={vehicle}
+          onChangeText={(userVehicle) => setVehicle(userVehicle)}
+          style={styles.textInput}
+          placeholder="Tipo de veículo"
+          placeholderTextColor="#A39BFF"
+        />
+        <TextInput
+          value={brand}
+          onChangeText={(userBrand) => setBrand(userBrand)}
+          style={styles.textInput}
+          placeholder="Marca"
+          placeholderTextColor="#A39BFF"
+        />
+        <TextInput
+          value={model}
+          onChangeText={(userModel) => setModel(userModel)}
+          style={styles.textInput}
+          placeholder="Modelo"
+          placeholderTextColor="#A39BFF"
+        />
+        <TextInput
+          value={license}
+          onChangeText={(userLicense) => setLicense(userLicense)}
+          style={styles.textInput}
+          placeholder="Placa"
+          placeholderTextColor="#A39BFF"
+        />
+        <TextInput
+          value={capacity}
+          onChangeText={(userCapacity) => setCapacity(userCapacity)}
+          style={styles.textInput}
+          placeholder="Capacidade"
+          placeholderTextColor="#A39BFF"
+        />
+        <TextInput
+          value={yearVehicle}
+          onChangeText={(userYearVehicle) => setYearVehicle(userYearVehicle)}
+          style={styles.textInput}
+          placeholder="Ano do veículo"
+          placeholderTextColor="#A39BFF"
+        />
+      </>
+    );
+  };
+
   const navigation = useNavigation();
 
   const [checked, setChecked] = useState("Empresa");
@@ -22,16 +122,25 @@ export default function RegisterScreen() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [birth, setBirth] = useState("");
+  const [phone, setPhone] = useState("");
+  const [idCard, setIdCard] = useState("");
+  const [vehicle, setVehicle] = useState("");
+  const [brand, setBrand] = useState("");
+  const [model, setModel] = useState("");
+  const [license, setLicense] = useState("");
+  const [capacity, setCapacity] = useState("");
+  const [yearVehicle, setYearVehicle] = useState("");
 
   function userRegistration() {
     api
       .post("/usuario/signin", {
         name: userName,
         email: email,
-        senha: password,
+        telefone: phone,
         dtNascimento: birth,
+        documento: idCard,
+        senha: password,
       })
       .then(function (response) {
         Alert.alert(
@@ -114,10 +223,11 @@ export default function RegisterScreen() {
           autoCorrect={false}
         />
         <TextInput
-          value={""}
-          onChangeText={(userPassword) => setConfirmPassword(userPassword)}
+          value={phone}
+          onChangeText={(userPhone) => setPhone(userPhone)}
           style={styles.textInput}
           placeholder="Telefone"
+          keyboardType="phone-pad"
           placeholderTextColor="#A39BFF"
         />
         <TextInput
@@ -125,15 +235,16 @@ export default function RegisterScreen() {
           onChangeText={(userBirth) => setBirth(userBirth)}
           placeholder="Data de nascimento"
           style={styles.textInput}
-          placeholderTextColor="#A39BFF"
           keyboardType="numeric"
+          placeholderTextColor="#A39BFF"
         />
         <TextInput
-          value={""}
-          onChangeText={(userPassword) => setConfirmPassword(userPassword)}
+          value={idCard}
+          onChangeText={(userIdCard) => setIdCard(userIdCard)}
           style={styles.textInput}
           placeholder="N° Documento"
           placeholderTextColor="#A39BFF"
+          keyboardType="numeric"
         />
         <TextInput
           value={password}
@@ -152,55 +263,16 @@ export default function RegisterScreen() {
             marginBottom: RFValue(10),
           }}
         />
-        <Text style={styles.secondTitle}>ENDEREÇO</Text>
-
-        <TextInput
-          value={password}
-          onChangeText={(userPassword) => setPassword(userPassword)}
-          style={styles.textInput}
-          placeholder="Endereço"
-          placeholderTextColor="#A39BFF"
-        />
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <TextInput
-            value={password}
-            onChangeText={(userPassword) => setPassword(userPassword)}
-            style={[styles.textInput, { width: "45%" }]}
-            placeholder="Número"
-            placeholderTextColor="#A39BFF"
-          />
-          <TextInput
-            value={password}
-            onChangeText={(userPassword) => setPassword(userPassword)}
-            style={[styles.textInput, { width: "53%" }]}
-            placeholder="Complemento"
-            placeholderTextColor="#A39BFF"
-          />
+        <View>
+          {checked === "Empresa" ? <EnterpriseForm /> : <TruckerForm />}
         </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <TextInput
-            value={password}
-            onChangeText={(userPassword) => setPassword(userPassword)}
-            style={[styles.textInput, { width: "45%" }]}
-            placeholder="CEP"
-            placeholderTextColor="#A39BFF"
-          />
-          <TextInput
-            value={password}
-            onChangeText={(userPassword) => setPassword(userPassword)}
-            style={[styles.textInput, { width: "53%" }]}
-            placeholder="Estado"
-            placeholderTextColor="#A39BFF"
-          />
-        </View>
-
         <View
           style={{
             borderTopWidth: 1,
             borderColor: "#7364FF",
             width: "100%",
             marginTop: RFValue(20),
-            marginBottom: RFValue(20),
+            marginBottom: RFValue(10),
           }}
         />
 
