@@ -1,47 +1,255 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   StyleSheet,
   View,
-  ImageBackground,
   Text,
-  ScrollView,
   Pressable,
+  TextInput,
+  ScrollView,
 } from "react-native";
 import { useAuth } from "../contexts/Auth";
-import { api } from "../services/api";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
+import DropDownComponent from "../components/DropDownComponent";
 
 export default function HomeScreen() {
+  const [address, setAddress] = useState("");
+  const [addressNumber, setAddressNumber] = useState("");
+  const [complement, setComplement] = useState("");
+  const [cep, setCep] = useState("");
+  const [state, setState] = useState("");
+
   const { signOut } = useAuth();
   return (
-    <View style={styles.container}>
-      <Pressable style={styles.button} onPress={signOut}>
-        <Text style={styles.textButton}>Sair</Text>
-      </Pressable>
-    </View>
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>GetFretes</Text>
+      <View style={styles.secondContainer}>
+        <Text style={styles.secondTitle}>Pedido de Transporte</Text>
+
+        <View
+          style={{
+            borderTopWidth: 1,
+            borderColor: "#7364FF",
+            width: "100%",
+            marginTop: RFValue(5),
+          }}
+        />
+
+        <Text style={styles.secondTitle}>Endereços</Text>
+        <Text style={styles.text}>ORIGEM</Text>
+
+        <TextInput
+          value={address}
+          onChangeText={(userAddress) => setAddress(userAddress)}
+          style={styles.textInput}
+          placeholder="Endereço"
+          placeholderTextColor="#A39BFF"
+        />
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <TextInput
+            value={addressNumber}
+            onChangeText={(userAddressNumber) =>
+              setAddressNumber(userAddressNumber)
+            }
+            style={[styles.textInput, { width: "48%" }]}
+            placeholder="Número"
+            placeholderTextColor="#A39BFF"
+          />
+          <TextInput
+            value={complement}
+            onChangeText={(userComplement) => setComplement(userComplement)}
+            style={[styles.textInput, { width: "48%" }]}
+            placeholder="Complemento"
+            placeholderTextColor="#A39BFF"
+          />
+        </View>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <TextInput
+            value={cep}
+            onChangeText={(userCep) => setCep(userCep)}
+            style={[styles.textInput, { width: "48%" }]}
+            placeholder="CEP"
+            placeholderTextColor="#A39BFF"
+          />
+          <TextInput
+            value={state}
+            onChangeText={(userState) => setState(userState)}
+            style={[styles.textInput, { width: "48%" }]}
+            placeholder="Estado"
+            placeholderTextColor="#A39BFF"
+          />
+        </View>
+
+        <Text style={styles.text}>DESTINO</Text>
+
+        <TextInput
+          value={address}
+          onChangeText={(userAddress) => setAddress(userAddress)}
+          style={styles.textInput}
+          placeholder="Endereço"
+          placeholderTextColor="#A39BFF"
+        />
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <TextInput
+            value={addressNumber}
+            onChangeText={(userAddressNumber) =>
+              setAddressNumber(userAddressNumber)
+            }
+            style={[styles.textInput, { width: "48%" }]}
+            placeholder="Número"
+            placeholderTextColor="#A39BFF"
+          />
+          <TextInput
+            value={complement}
+            onChangeText={(userComplement) => setComplement(userComplement)}
+            style={[styles.textInput, { width: "48%" }]}
+            placeholder="Complemento"
+            placeholderTextColor="#A39BFF"
+          />
+        </View>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <TextInput
+            value={cep}
+            onChangeText={(userCep) => setCep(userCep)}
+            style={[styles.textInput, { width: "48%" }]}
+            placeholder="CEP"
+            placeholderTextColor="#A39BFF"
+          />
+          <TextInput
+            value={state}
+            onChangeText={(userState) => setState(userState)}
+            style={[styles.textInput, { width: "48%" }]}
+            placeholder="Estado"
+            placeholderTextColor="#A39BFF"
+          />
+        </View>
+
+        <View
+          style={{
+            borderTopWidth: 1,
+            borderColor: "#7364FF",
+            width: "100%",
+            marginTop: RFValue(20),
+          }}
+        />
+
+        <Text style={[styles.secondTitle, { marginBottom: RFValue(10) }]}>
+          Carga
+        </Text>
+
+        <DropDownComponent
+          itemsN={[
+            { label: "Bicicleta", value: "Bike" },
+            { label: "Patinete", value: "Patinete" },
+          ]}
+        />
+
+        <TextInput
+          value={""}
+          onChangeText={(userAddress) => setAddress(userAddress)}
+          style={styles.textInput}
+          placeholder="Peso/Quantidade"
+          placeholderTextColor="#A39BFF"
+        />
+
+        <Pressable style={styles.button} onPress={""}>
+          <Text style={styles.buttonText}>Adicionar Produto</Text>
+        </Pressable>
+
+        <View
+          style={{
+            borderTopWidth: 1,
+            borderColor: "#7364FF",
+            width: "100%",
+            marginTop: RFValue(20),
+          }}
+        />
+
+        <Text style={[styles.secondTitle, { marginBottom: RFValue(10) }]}>
+          Resumo do Pedido
+        </Text>
+
+        <View style={styles.orderContainer}>
+          <Text style={[styles.secondTitle, { marginBottom: RFValue(10) }]}>
+            Resumo do Pedido
+          </Text>
+        </View>
+
+        <Pressable style={styles.button} onPress={""}>
+          <Text style={styles.buttonText}>Contratar Frete</Text>
+        </Pressable>
+
+        <Pressable onPress={signOut}>
+          <Text>Sair</Text>
+        </Pressable>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#7364FF",
+    backgroundColor: "#E8E7FF",
+  },
+  title: {
+    fontFamily: "Caveat_700Bold",
+    color: "#FFC30D",
+    fontSize: RFValue(52),
+    textAlign: "center",
+    paddingTop: RFPercentage(4),
+    paddingBottom: RFPercentage(2),
+  },
+  secondContainer: {
+    flex: 1,
+    alignItems: "center",
+    paddingHorizontal: RFPercentage(5),
+    backgroundColor: "#CECCFF",
+    borderTopRightRadius: RFValue(20),
+    borderTopLeftRadius: RFValue(20),
+  },
+  secondTitle: {
+    color: "#7364FF",
+    fontFamily: "Signika_600SemiBold",
+    fontSize: RFValue(26),
+    marginTop: RFValue(10),
+    alignSelf: "center",
+  },
+  textInput: {
+    width: "100%",
+    height: RFValue(36),
+    textAlign: "left",
+    paddingLeft: RFValue(20),
+    borderRadius: RFValue(20),
+    marginTop: RFValue(10),
+    fontSize: RFValue(16),
+    backgroundColor: "#E8E7FF",
+    fontFamily: "Signika_600SemiBold",
+  },
+  text: {
+    color: "#7364FF",
+    fontFamily: "Signika_600SemiBold",
+    fontSize: RFValue(20),
+    marginTop: RFValue(10),
+    alignSelf: "flex-start",
   },
   button: {
-    alignItems: "center",
+    width: "100%",
+    height: RFPercentage(6),
+    marginHorizontal: "auto",
+    backgroundColor: "#7364FF",
+    borderRadius: RFValue(30),
     justifyContent: "center",
-    paddingVertical: RFValue(12),
-    paddingHorizontal: RFValue(32),
-    borderRadius: 10,
-    backgroundColor: "#3792CB",
-    marginTop: RFValue(20),
-    width: "80%",
+    marginTop: RFValue(10),
   },
-  textButton: {
-    fontFamily: "Caveat_700Bold",
-    color: "#FFFF00",
-    fontSize: RFValue(10),
-    marginTop: RFValue(5),
-    alignItems: "center",
+  buttonText: {
+    color: "#FFF",
+    fontFamily: "Signika_600SemiBold",
+    fontSize: RFValue(20),
+    textAlign: "center",
+  },
+  orderContainer: {
+    backgroundColor: "#E8E7FF",
+    width: "100%",
+    borderRadius: 20
   },
 });

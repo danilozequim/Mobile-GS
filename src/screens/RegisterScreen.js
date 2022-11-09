@@ -22,23 +22,25 @@ export default function RegisterScreen() {
         <Text style={styles.secondTitle}>ENDEREÇO</Text>
 
         <TextInput
-          value={password}
-          onChangeText={(userPassword) => setPassword(userPassword)}
+          value={address}
+          onChangeText={(userAddress) => setAddress(userAddress)}
           style={styles.textInput}
           placeholder="Endereço"
           placeholderTextColor="#A39BFF"
         />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <TextInput
-            value={password}
-            onChangeText={(userPassword) => setPassword(userPassword)}
+            value={addressNumber}
+            onChangeText={(userAddressNumber) =>
+              setAddressNumber(userAddressNumber)
+            }
             style={[styles.textInput, { width: "45%" }]}
             placeholder="Número"
             placeholderTextColor="#A39BFF"
           />
           <TextInput
-            value={password}
-            onChangeText={(userPassword) => setPassword(userPassword)}
+            value={complement}
+            onChangeText={(userComplement) => setComplement(userComplement)}
             style={[styles.textInput, { width: "53%" }]}
             placeholder="Complemento"
             placeholderTextColor="#A39BFF"
@@ -46,15 +48,15 @@ export default function RegisterScreen() {
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <TextInput
-            value={password}
-            onChangeText={(userPassword) => setPassword(userPassword)}
+            value={cep}
+            onChangeText={(userCep) => setCep(userCep)}
             style={[styles.textInput, { width: "45%" }]}
             placeholder="CEP"
             placeholderTextColor="#A39BFF"
           />
           <TextInput
-            value={password}
-            onChangeText={(userPassword) => setPassword(userPassword)}
+            value={state}
+            onChangeText={(userState) => setState(userState)}
             style={[styles.textInput, { width: "53%" }]}
             placeholder="Estado"
             placeholderTextColor="#A39BFF"
@@ -131,6 +133,11 @@ export default function RegisterScreen() {
   const [license, setLicense] = useState("");
   const [capacity, setCapacity] = useState("");
   const [yearVehicle, setYearVehicle] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressNumber, setAddressNumber] = useState("");
+  const [complement, setComplement] = useState("");
+  const [cep, setCep] = useState("");
+  const [state, setState] = useState("");
 
   function userRegistration() {
     api
@@ -180,7 +187,7 @@ export default function RegisterScreen() {
               status={checked === "Caminhoneiro" ? "checked" : "unchecked"}
               onPress={() => setChecked("Caminhoneiro")}
               color="#7364FF"
-              uncheckedColor="#A39BFF"
+              uncheckedColor="#FFF"
             />
             <Text style={styles.registerText}>Caminhoneiro</Text>
           </View>
@@ -195,7 +202,7 @@ export default function RegisterScreen() {
               status={checked === "Empresa" ? "checked" : "unchecked"}
               onPress={() => setChecked("Empresa")}
               color="#7364FF"
-              uncheckedColor="#A39BFF"
+              uncheckedColor="#FFF"
             />
             <Text style={styles.registerText}>Empresa</Text>
           </View>
@@ -263,9 +270,7 @@ export default function RegisterScreen() {
             marginBottom: RFValue(10),
           }}
         />
-        <View>
-          {checked === "Empresa" ? <EnterpriseForm /> : <TruckerForm />}
-        </View>
+        {checked === "Empresa" ? <EnterpriseForm /> : <TruckerForm />}
         <View
           style={{
             borderTopWidth: 1,
