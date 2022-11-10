@@ -119,7 +119,7 @@ export default function RegisterScreen() {
 
   const navigation = useNavigation();
 
-  const [checked, setChecked] = useState("Empresa");
+  const [checked, setChecked] = useState("CLIENTE");
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -141,15 +141,17 @@ export default function RegisterScreen() {
 
   function userRegistration() {
     api
-      .post("/usuario/signin", {
+      .post("/user", {
+        type: checked,
         name: userName,
         email: email,
-        telefone: phone,
-        dtNascimento: birth,
-        documento: idCard,
-        senha: password,
+        password: password,
+        bornDate: birth,
+        telephone: phone,
+        legalDocument: idCard,
       })
       .then(function (response) {
+        console.log(response);
         Alert.alert(
           "Usuário criado",
           "Agora você já pode fazer login na plataforma",
@@ -157,9 +159,10 @@ export default function RegisterScreen() {
         );
       })
       .catch(function (error) {
-        console.error(error.response);
+        console.error(error.response.data);
       });
   }
+
   return (
     <ScrollView style={styles.container}>
       <ImageBackground
@@ -183,9 +186,9 @@ export default function RegisterScreen() {
             }}
           >
             <RadioButton
-              value="Caminhoneiro"
-              status={checked === "Caminhoneiro" ? "checked" : "unchecked"}
-              onPress={() => setChecked("Caminhoneiro")}
+              value="PRESTADOR"
+              onPress={() => setChecked("PRESTADOR")}
+              status={checked === "PRESTADOR" ? "checked" : "unchecked"}
               color="#7364FF"
               uncheckedColor="#FFF"
             />
@@ -198,9 +201,9 @@ export default function RegisterScreen() {
             }}
           >
             <RadioButton
-              value="Empresa"
-              status={checked === "Empresa" ? "checked" : "unchecked"}
-              onPress={() => setChecked("Empresa")}
+              value="CLIENTE"
+              onPress={() => setChecked("CLIENTE")}
+              status={checked === "CLIENTE" ? "checked" : "unchecked"}
               color="#7364FF"
               uncheckedColor="#FFF"
             />
@@ -270,7 +273,7 @@ export default function RegisterScreen() {
             marginBottom: RFValue(10),
           }}
         />
-        {checked === "Empresa" ? <EnterpriseForm /> : <TruckerForm />}
+        {checked === "CLIENTE" ? <EnterpriseForm /> : <TruckerForm />}
         <View
           style={{
             borderTopWidth: 1,

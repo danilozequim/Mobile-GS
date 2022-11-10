@@ -9,13 +9,12 @@ import {
 } from "react-native";
 import { useAuth } from "../contexts/Auth";
 import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
-import DropDownComponent from "../components/DropDownComponent";
 import OrderComponent from "../components/OrderComponent";
 import { useNavigation } from "@react-navigation/native";
 
-export default function HomeScreen() {
-  const navigation = useNavigation();
+export default function ShippingScreen() {
   const { signOut } = useAuth();
+  const navigation = useNavigation();
 
   const [address, setAddress] = useState("");
   const [addressNumber, setAddressNumber] = useState("");
@@ -137,38 +136,6 @@ export default function HomeScreen() {
         />
 
         <Text style={[styles.secondTitle, { marginBottom: RFValue(10) }]}>
-          Carga
-        </Text>
-
-        <DropDownComponent
-          itemsN={[
-            { label: "Bicicleta", value: "Bike" },
-            { label: "Patinete", value: "Patinete" },
-          ]}
-        />
-
-        <TextInput
-          value={""}
-          onChangeText={(userAddress) => setAddress(userAddress)}
-          style={styles.textInput}
-          placeholder="Peso/Quantidade"
-          placeholderTextColor="#A39BFF"
-        />
-
-        <Pressable style={styles.button} onPress={""}>
-          <Text style={styles.buttonText}>Adicionar Produto</Text>
-        </Pressable>
-
-        <View
-          style={{
-            borderTopWidth: 1,
-            borderColor: "#7364FF",
-            width: "100%",
-            marginTop: RFValue(20),
-          }}
-        />
-
-        <Text style={[styles.secondTitle, { marginBottom: RFValue(10) }]}>
           Resumo do Pedido
         </Text>
 
@@ -201,17 +168,6 @@ export default function HomeScreen() {
               paddingHorizontal: RFValue(15),
             }}
           >
-            <Text style={styles.text}>Valor da carga:</Text>
-            <Text style={styles.text}>R$ 100,00</Text>
-          </View>
-
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: RFValue(15),
-            }}
-          >
             <Text style={styles.text}>Frete:</Text>
             <Text style={styles.text}>10%</Text>
           </View>
@@ -229,14 +185,23 @@ export default function HomeScreen() {
         </View>
 
         <Pressable style={styles.button} onPress={""}>
-          <Text style={styles.buttonText}>Contratar Frete</Text>
+          <Text style={styles.buttonText}>ACEITAR TRANSPORTE</Text>
         </Pressable>
 
-        <Pressable onPress={signOut}>
-          <Text>Sair</Text>
+        <Pressable
+          style={[
+            styles.button,
+            { backgroundColor: "#FFF", borderColor: "#7364FF", borderWidth: 1 },
+          ]}
+          onPress={""}
+        >
+          <Text style={[styles.buttonText, { color: "#7364FF" }]}>
+            RECUSAR TRANSPORTE
+          </Text>
         </Pressable>
-        <Pressable onPress={() => navigation.navigate("Shipping")}>
-          <Text>Aceitar frete</Text>
+
+        <Pressable onPress={()=> navigation.navigate("List")}>
+          <Text>Listar</Text>
         </Pressable>
       </View>
     </ScrollView>

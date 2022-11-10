@@ -1,37 +1,33 @@
 import {
   StyleSheet,
   View,
-  ImageBackground,
-  Image,
-  TouchableOpacity,
   ActivityIndicator,
-  Text,
+  ImageBackground,
 } from "react-native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export default function App() {
   return (
-    <View>
-      <View style={styles.container}></View>
-      <View style={styles.loading}>
-        <ActivityIndicator size="large" color="#45B6FE" />
-      </View>
+    <View style={styles.container}>
+      <ImageBackground
+        source={require("../assets/bg.png")}
+        style={styles.imgBackground}
+      />
+      <ActivityIndicator size="large" color="#7364FF" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#7364FF"
+    backgroundColor: "#E8E7FF",
+    padding: RFValue(40),
   },
   imgBackground: {
-    flex: 1,
-    resizeMode: "cover",
-  },
-  loading: {
-    flex: 1,
-    alignItems: "center",
+    width: RFPercentage(50),
+    height: RFPercentage(35),
   },
 });
