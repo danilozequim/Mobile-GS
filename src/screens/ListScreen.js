@@ -1,12 +1,4 @@
-import { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-  TextInput,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
 import { useAuth } from "../contexts/Auth";
 import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 import OrderComponent from "../components/OrderComponent";
@@ -46,14 +38,14 @@ export default function ListScreen() {
               borderTopWidth: 1,
               borderColor: "#7364FF",
               width: "100%",
+              marginVertical: RFValue(20)
             }}
           />
         </View>
-
-        <Pressable onPress={signOut}>
-          <Text>Sair</Text>
-        </Pressable>
       </View>
+      <Pressable onPress={signOut} style={styles.button}>
+        <Text style={styles.buttonText}>Sair</Text>
+      </Pressable>
     </ScrollView>
   );
 }
@@ -97,5 +89,22 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 20,
     paddingHorizontal: RFPercentage(5),
+  },
+  button: {
+    width: "80%",
+    height: RFPercentage(6),
+    marginHorizontal: "auto",
+    backgroundColor: "#7364FF",
+    borderRadius: RFValue(30),
+    justifyContent: "center",
+    marginTop: RFValue(10),
+    marginBottom: RFValue(20),
+    alignSelf: "center",
+  },
+  buttonText: {
+    color: "#FFF",
+    fontFamily: "Signika_600SemiBold",
+    fontSize: RFValue(20),
+    textAlign: "center",
   },
 });

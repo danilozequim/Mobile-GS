@@ -200,8 +200,20 @@ export default function ShippingScreen() {
           </Text>
         </Pressable>
 
-        <Pressable onPress={()=> navigation.navigate("List")}>
-          <Text>Listar</Text>
+        <View
+          style={{
+            borderTopWidth: 1,
+            borderColor: "#7364FF",
+            width: "100%",
+            marginTop: RFValue(20),
+          }}
+        />
+
+        <Pressable
+          style={[styles.button, { marginBottom: RFValue(20) }]}
+          onPress={() => navigation.navigate("List")}
+        >
+          <Text style={styles.buttonText}>Listar Pedidos</Text>
         </Pressable>
       </View>
     </ScrollView>

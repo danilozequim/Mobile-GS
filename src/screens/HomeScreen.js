@@ -232,11 +232,23 @@ export default function HomeScreen() {
           <Text style={styles.buttonText}>Contratar Frete</Text>
         </Pressable>
 
-        <Pressable onPress={signOut}>
-          <Text>Sair</Text>
+        <View
+          style={{
+            borderTopWidth: 1,
+            borderColor: "#7364FF",
+            width: "100%",
+            marginTop: RFValue(20),
+          }}
+        />
+
+        <Pressable style={styles.button} onPress={signOut}>
+          <Text style={styles.buttonText}>Sair</Text>
         </Pressable>
-        <Pressable onPress={() => navigation.navigate("Shipping")}>
-          <Text>Aceitar frete</Text>
+        <Pressable
+          style={[styles.button, { marginBottom: RFValue(20) }]}
+          onPress={() => navigation.navigate("Shipping")}
+        >
+          <Text style={styles.buttonText}>Aceitar frete</Text>
         </Pressable>
       </View>
     </ScrollView>
